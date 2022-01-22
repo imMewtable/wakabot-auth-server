@@ -63,7 +63,7 @@ def home():
 
     :return: redirect to url
     """
-    return redirect('https://github.com/imMewtable/wakatime-bot')
+    return "Hello, this is the imMewtable home page!"
 
 
 def get_first_token_response(token):
@@ -98,3 +98,7 @@ def __parse_raw_response__(response_text):
         parsed_response[kv[0]] = kv[1]
 
     return parsed_response
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
