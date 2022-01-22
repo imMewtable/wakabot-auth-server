@@ -63,7 +63,8 @@ def home():
 
     :return: redirect to url
     """
-    return "Hello, this is the imMewtable home page!"
+    server = model.get_user_server('jkc_boi#4751')
+    return "Hello, this is the imMewtable home page! " + str(server)
 
 
 def get_first_token_response(token):

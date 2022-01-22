@@ -43,6 +43,13 @@ class AuthenticationState(BaseModel):
         primary_key = CompositeKey('discord_username', 'server_id')
 
 
+def get_user(discord_username):
+    db.connect(reuse_if_open=True)
+    data = WakaData.get(WakaData.discord_username == discord_username)
+    db.close()
+    return data.server_id
+
+
 def state_exists(state):
     """
     Checks the AuthenticationState table to see if the state exists.
