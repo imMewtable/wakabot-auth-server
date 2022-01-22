@@ -63,7 +63,7 @@ def home():
 
     :return: redirect to url
     """
-    return redirect('https://github.com/imMewtable/wakatime-bot')
+    return "Hello, this is the imMewtable home page!"
 
 
 def get_first_token_response(token):
