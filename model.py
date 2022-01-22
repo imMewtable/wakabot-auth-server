@@ -18,7 +18,7 @@ db = MySQLDatabase(
 
 
 class BaseModel(Model):
-    """A base model that will use our Sqlite database."""
+    """A base model that will use our MySQL database."""
     class Meta:
         database = db
 
@@ -44,12 +44,20 @@ class AuthenticationState(BaseModel):
 
 
 def state_exists(state):
+    """
+    Checks the AuthenticationState table to see if the state exists.
+    Used to verify the identity for the token authorization URL
+    :param state: the state passed in that will be compared to the DB
+    :return: True if the state exists, False if not.
+    """
     try:
         db.connect(reuse_if_open=True)
         data = AuthenticationState.get(AuthenticationState.state == state)
         if data.discord_username and data.server_id:
+            db.close()
             return True
         else:
+            db.close()
             return False
 
     except Exception as e:
@@ -59,9 +67,15 @@ def state_exists(state):
 
 
 def get_user_data_from_state(state):
+    """
+    Retrieves the data that is associated with each state in the database.
+    :param state: the state used in the OAuth parameter
+    :return: The data associated with the state in the AuthenticationState database, or None if it doesn't exist
+    """
     try:
         db.connect(reuse_if_open=True)
         data = AuthenticationState.get(AuthenticationState.state == state)
+        db.close()
         return data
     except Exception as e:
         print(e)
@@ -70,6 +84,15 @@ def get_user_data_from_state(state):
 
 
 def create_user_data(discord_username, wakatime_username, auth_token, refresh_token, server_id):
+    """
+    Initializes user data from parameters in the WakaData table
+    :param discord_username: the discord username as a string (ie, 'john#1234')
+    :param wakatime_username: the wakatime username of the user. Can be None/Null if user didn't create account
+    :param auth_token: The access token given by the wakatime token API to make authenticated API calls
+    :param refresh_token: The refresh token given by the wakatime token API to get new access tokens
+    :param server_id: The bigint server ID that the discord_username registered with
+    :return: An int representing how many changes were made in the database. 1 is a successful insert.
+    """
     db.connect(reuse_if_open=True)
 
     code = WakaData.create(discord_username=discord_username,
