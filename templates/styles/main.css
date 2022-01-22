@@ -1,6 +1,6 @@
 @font-face {
-    font-family: Barlow;
-    src: url('../fonts/Barlow-Regular.ttf'); 
+    font-family: UbuntuMono;
+    src: url('../fonts/UbuntuMono-Regular.ttf'); 
     }
 
 body {
@@ -9,7 +9,7 @@ body {
 
 /* div class of all the text */
 .message {
-    font-family: Barlow;
+    font-family: UbuntuMono;
     position: absolute;
     top: 20%;
     width: 100%;
