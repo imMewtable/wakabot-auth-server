@@ -43,7 +43,7 @@ class AuthenticationState(BaseModel):
         primary_key = CompositeKey('discord_username', 'server_id')
 
 
-def get_user(discord_username):
+def get_user_server(discord_username):
     db.connect(reuse_if_open=True)
     data = WakaData.get(WakaData.discord_username == discord_username)
     db.close()
