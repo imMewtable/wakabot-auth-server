@@ -12,25 +12,30 @@ from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-load_dotenv('secrets.env')
-WAKA_APP_ID = os.getenv('WAKA_APP_ID')
-WAKA_APP_SECRET = os.getenv('WAKA_APP_SECRET')
-REDIRECT_URI = os.getenv('REDIRECT_URI')
 
-HOST = os.getenv('MYSQL_HOST')
-MYSQL_USERNAME = os.getenv('MYSQL_USER')
-MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
-DB_NAME = os.getenv('MYSQL_DATABASE_NAME')
+@app.before_first_request
+def setup():
+    load_dotenv('secrets.env')
+    global WAKA_APP_ID
+    global WAKA_APP_SECRET
+    global REDIRECT_URI
 
-print(HOST)
-print(MYSQL_USERNAME)
+    WAKA_APP_ID = os.getenv('WAKA_APP_ID')
+    WAKA_APP_SECRET = os.getenv('WAKA_APP_SECRET')
+    REDIRECT_URI = os.getenv('REDIRECT_URI')
 
-db = MySQLDatabase(
-    host=HOST,
-    user=MYSQL_USERNAME,
-    password=MYSQL_PASSWORD,
-    database=DB_NAME
-)
+    HOST = os.getenv('MYSQL_HOST')
+    MYSQL_USERNAME = os.getenv('MYSQL_USER')
+    MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
+    DB_NAME = os.getenv('MYSQL_DATABASE_NAME')
+
+    global db
+    db = MySQLDatabase(
+        host=HOST,
+        user=MYSQL_USERNAME,
+        password=MYSQL_PASSWORD,
+        database=DB_NAME
+    )
 
 
 @app.before_request
