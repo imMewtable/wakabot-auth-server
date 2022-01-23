@@ -1,18 +1,13 @@
-@font-face {
-    font-family: UbuntuMono;
-    src: url('../fonts/UbuntuMono-Regular.ttf'); 
-    }
-
 body {
         background-color: #1c1c1c;    
 }
 
 /* div class of all the text */
 .message {
-    font-family: UbuntuMono;
+    font-family: 'Ubuntu Mono', monospace;
     position: absolute;
     top: 20%;
-    width: 100%;
+    width: 99%;
     text-align: center;
     font-size: 18px;
     color: rgb(240, 245, 245);
