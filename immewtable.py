@@ -63,27 +63,6 @@ def authenticate():
     return {'code': 400, 'error': 'state was invalid'}, 400
 
 
-@app.route('/success', methods=['GET'])
-def auth_success():
-    """
-    Endpoint that the user gets redirected to if the authentication was a success
-
-    :return: Render template for success html
-    """
-    return render_template('success.html')
-
-
-@app.route('/', methods=['GET'])
-def home():
-    """
-    Home endpoint (will just redirect to the Github page for now)
-
-    :return: redirect to url
-    """
-    server = get_user_server('jkc_boi#4751')
-    return "Hello, this is the imMewtable home page! " + str(server)
-
-
 def get_first_token_response(token):
     """
     Calls the wakatime token API to validate the token passed in
