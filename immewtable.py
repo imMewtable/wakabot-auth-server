@@ -54,7 +54,7 @@ def authenticate():
             username = user_data['username']
             if create_user_data(entry.discord_username, username, token_response['access_token'],
                                 token_response['refresh_token'], entry.server_id):
-                return redirect(url_for('success'))
+                return redirect('https://www.immewtable.com/success')
 
             return {'code': 400, 'error': 'user was probably already created'}, 400
 
